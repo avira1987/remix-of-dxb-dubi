@@ -1,0 +1,28 @@
+# Netlify/Vercel headers file
+# This file should be copied to the dist folder after build
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+
+/*.js
+  Content-Type: application/javascript
+
+/*.mjs
+  Content-Type: application/javascript
+
+/*.css
+  Content-Type: text/css
+
+/*.json
+  Content-Type: application/json
+
+/*.svg
+  Content-Type: image/svg+xml
+
+/*.woff
+  Content-Type: font/woff
+
+/*.woff2
+  Content-Type: font/woff2

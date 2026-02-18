@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 45 20% 95%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 45 20% 95%;
+
+    --primary: 43 45% 59%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 45 20% 90%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 45 10% 55%;
+
+    --accent: 43 45% 59%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 45 20% 95%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
+    --ring: 43 45% 59%;
+
+    --radius: 0.25rem;
+
+    /* Custom luxury tokens */
+    --gold: 43 45% 59%;
+    --gold-light: 43 55% 72%;
+    --gold-dark: 43 40% 45%;
+    --platinum: 45 5% 75%;
+    --noir: 0 0% 4%;
+    --noir-light: 0 0% 8%;
+    --noir-elevated: 0 0% 12%;
+    
+    /* Glassmorphism */
+    --glass-bg: 0 0% 100% / 0.03;
+    --glass-border: 0 0% 100% / 0.08;
+    --glass-blur: 20px;
+
+    /* Typography */
+    --font-display: 'Playfair Display', serif;
+    --font-elegant: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    --shadow-gold: 0 0 60px -15px hsl(var(--gold) / 0.3);
+    --shadow-elevated: 0 20px 40px -15px hsl(0 0% 0% / 0.6);
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light)));
+    --gradient-noir: linear-gradient(180deg, hsl(var(--noir)) 0%, hsl(var(--noir-light)) 100%);
+    --gradient-radial: radial-gradient(ellipse at center, hsl(var(--noir-light)) 0%, hsl(var(--noir)) 70%);
+    --gradient-shimmer: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.1), transparent);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
+
+  .font-elegant {
+    font-family: var(--font-elegant);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+@layer components {
+  /* Glass morphism card */
+  .glass-card {
+    @apply relative overflow-hidden;
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  /* Gold text gradient */
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shimmer);
+    animation: shimmer 3s infinite;
+  }
+
+  /* Luxury button */
+  .btn-luxury {
+    @apply relative overflow-hidden px-8 py-4 text-sm tracking-[0.3em] uppercase;
+    @apply border border-primary/30 bg-transparent text-primary;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .btn-luxury::before {
+    content: '';
+    @apply absolute inset-0 bg-primary/10 translate-y-full transition-transform duration-500;
+  }
+
+  .btn-luxury:hover::before {
+    @apply translate-y-0;
+  }
+
+  .btn-luxury:hover {
+    @apply border-primary text-primary shadow-gold;
+  }
+
+  /* Divider with gold accent */
+  .divider-gold {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent;
+  }
+
+  /* Vertical text */
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* Category panel */
+  .category-panel {
+    @apply relative h-full overflow-hidden transition-all duration-700 ease-out cursor-pointer;
+  }
+
+  .category-panel::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-noir via-transparent to-transparent opacity-80;
+  }
+
+  .category-panel:hover::before {
+    @apply opacity-60;
+  }
+
+  /* Product card */
+  .product-card {
+    @apply relative overflow-hidden glass-card rounded-sm;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .product-card:hover {
+    @apply scale-[1.02];
+    box-shadow: var(--shadow-luxury);
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    @apply animate-bounce text-primary/60;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text shadow luxury */
+  .text-shadow-luxury {
+    text-shadow: 0 2px 20px hsl(var(--gold) / 0.3);
+  }
+}
+
+/* Keyframes */
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--gold) / 0.4); }
+  50% { box-shadow: 0 0 20px 10px hsl(var(--gold) / 0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+/* Stagger animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
